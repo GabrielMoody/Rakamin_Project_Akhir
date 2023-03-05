@@ -29,7 +29,7 @@ func (alr *BooksRepositoryImpl) GetAllBooks(ctx context.Context, params daos.Fil
 	db := alr.db
 
 	filter := map[string][]any{
-		"title like ? or description like ? or author like ?": []any{fmt.Sprint("%" + params.Title), "%ab ", "%ab"},
+		"title like ? or description like ? or author like ?": {fmt.Sprint("%" + params.Title), "%ab ", "%ab"},
 	}
 
 	// if params.Title != "" {

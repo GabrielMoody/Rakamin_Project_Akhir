@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"tugas_akhir_example/internal/helper"
 	"tugas_akhir_example/internal/infrastructure/container"
 	"tugas_akhir_example/internal/infrastructure/mysql"
@@ -24,6 +23,6 @@ func main() {
 
 	rest.HTTPRouteInit(app, containerConf)
 
-	port := fmt.Sprintf("%s:%d", containerConf.Apps.Host, containerConf.Apps.HttpPort)
-	helper.Logger("main.go", helper.LoggerLevelFatal, app.Listen(port).Error())
+	// port := fmt.Sprintf("%s:%d", containerConf.Apps.Host, containerConf.Apps.HttpPort)
+	helper.Logger("main.go", helper.LoggerLevelFatal, app.Listen(":3000").Error())
 }

@@ -9,8 +9,18 @@ import (
 )
 
 func RunMigration(mysqlDB *gorm.DB) {
+
 	err := mysqlDB.AutoMigrate(
 		&daos.Book{},
+		&daos.User{},
+		&daos.Toko{},
+		&daos.Alamat{},
+		&daos.Category{},
+		&daos.Produk{},
+		&daos.Log_produk{},
+		&daos.Foto_produk{},
+		&daos.Trx{},
+		&daos.Detail_trx{},
 	)
 
 	var count int64
