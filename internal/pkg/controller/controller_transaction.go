@@ -108,8 +108,8 @@ func (a *TransactionControllerImpl) CreateTransaction(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"status":  false,
-		"message": "Failed to GET data",
+		"status":  true,
+		"message": "Succeed to POST data",
 		"errors":  nil,
 		"data":    res,
 	})

@@ -7,8 +7,8 @@ type (
 	}
 
 	CityList struct {
-		Id         string `json:"id"`
-		Regency_id string `json:"regency_id"`
-		Name       string `json:"name"`
+		Id          string `json:"id"`
+		Province_id string `json:"province_id"`
+		Name        string `json:"name"`
 	}
 )

@@ -17,7 +17,7 @@ type ProvinceCityUseCase interface {
 	GetListProvincies(ctx context.Context) (res []dto.ProvinceList, err *helper.ErrorStruct)
 	GetListCities(ctx context.Context, provinceid string) (res []dto.CityList, err *helper.ErrorStruct)
 	GetDetailProvinceByID(ctx context.Context, provinceid string) (res dto.ProvinceList, err *helper.ErrorStruct)
-	GetDetailCityByID(ctx context.Context, cityid string) (res []dto.CityList, err *helper.ErrorStruct)
+	GetDetailCityByID(ctx context.Context, cityid string) (res dto.CityList, err *helper.ErrorStruct)
 }
 
 type ProvinceCityUseCaseImpl struct {
@@ -57,7 +57,7 @@ func (a *ProdukUseCaseImpl) GetListProvincies(ctx context.Context) (res []dto.Pr
 }
 
 func (a *ProdukUseCaseImpl) GetListCities(ctx context.Context, provinceid string) (res []dto.CityList, err *helper.ErrorStruct) {
-	req := fmt.Sprintf("https://www.emsifa.com/api-wilayah-indonesia/api/districts/%s.json", provinceid)
+	req := fmt.Sprintf("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/%s.json", provinceid)
 	log.Println(req)
 	resp, errResp := http.Get(req)
 
@@ -127,8 +127,8 @@ func (a *ProdukUseCaseImpl) GetDetailProvinceByID(ctx context.Context, provincei
 	return res, nil
 }
 
-func (a *ProdukUseCaseImpl) GetDetailCityByID(ctx context.Context, cityid string) (res []dto.CityList, err *helper.ErrorStruct) {
-	req := fmt.Sprintf("https://www.emsifa.com/api-wilayah-indonesia/api/districts/%s.json", cityid)
+func (a *ProdukUseCaseImpl) GetDetailCityByID(ctx context.Context, cityid string) (res dto.CityList, err *helper.ErrorStruct) {
+	req := fmt.Sprintf("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/%s.json", cityid[:2])
 	resp, errResp := http.Get(req)
 
 	if errResp != nil {
@@ -156,5 +156,15 @@ func (a *ProdukUseCaseImpl) GetDetailCityByID(ctx context.Context, cityid string
 		}
 	}
 
-	return list, nil
+	for _, v := range list {
+		if v.Id == cityid {
+			return dto.CityList{
+				Id:          v.Id,
+				Province_id: v.Province_id,
+				Name:        v.Name,
+			}, nil
+		}
+	}
+
+	return res, nil
 }

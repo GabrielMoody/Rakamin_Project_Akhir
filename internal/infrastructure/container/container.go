@@ -33,7 +33,7 @@ type (
 )
 
 func loadEnv() {
-	projectDirName := "go-example-cruid"
+	projectDirName := "Rakamin_Project_Akhir"
 	projectName := regexp.MustCompile(`^(.*` + projectDirName + `)`)
 	currentWorkDirectory, _ := os.Getwd()
 	rootPath := projectName.Find([]byte(currentWorkDirectory))

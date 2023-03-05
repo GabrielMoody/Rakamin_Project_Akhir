@@ -106,15 +106,21 @@ func (a *TransactionUseCaseImpl) CreateTransaction(ctx context.Context, userid s
 	}
 
 	var detailTrx []daos.Detail_trx
+	var produks []uint
 
 	for _, v := range params.DetailTransaction {
 		detailTrx = append(detailTrx, daos.Detail_trx{
-			Id_log_produk: v.Product_id,
-			Kuantitas:     v.Kuantitas,
+			Kuantitas: v.Kuantitas,
 		})
+
+		produks = append(produks, v.Product_id)
 	}
 
-	resRepo, errRepo := a.transactionrepo.CreateTransaction(ctx, userid, daos.Trx{
+	// for _, v := range params.DetailTransaction {
+	// 	produks = append(produks, uint(v.Product_id))
+	// }
+
+	resRepo, errRepo := a.transactionrepo.CreateTransaction(ctx, userid, produks, daos.Trx{
 		Method_bayar:      params.Method_bayar,
 		Alamat_pengiriman: params.Alamat_kirim,
 		Detail_trx:        detailTrx,
